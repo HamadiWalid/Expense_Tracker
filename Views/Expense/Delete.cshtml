@@ -1,0 +1,56 @@
+﻿@model Expense_Tracker.Models.Expense
+
+
+
+
+
+
+<div class="glass-container d-flex justify-content-center align-items-center ">
+    <div class="expense-form-container">
+        <div class="expense-header" style="margin-left:0">
+            Delete this expense
+        </div>
+        <div class="row align-content-center mt-2">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dl class="mb-4 text-white">
+                            @Html.Raw(@Html.DisplayNameFor(model => model.Name))  :   @Html.DisplayFor(model => model.Name)
+                        </dl>
+                           
+                    <dl class="mb-4 text-white">
+                        @Html.Raw(@Html.DisplayNameFor(model => model.Amount))  :   @Html.DisplayFor(model => model.Amount)
+                    </dl>
+
+                        <dl class="mb-4 text-white">
+                            @Html.Raw(@Html.DisplayNameFor(model => model.Date))  :   @Html.DisplayFor(model => model.Date)
+                    </dl>
+
+                            <dl class="mb-4 text-white">
+                                @Html.Raw(@Html.DisplayNameFor(model => model.Category))  :   @Html.DisplayFor(model => model.Category.Name)
+                    </dl>
+
+                                <dl class="mb-4 text-white">
+                                    @Html.Raw(@Html.DisplayNameFor(model => model.User))  :   @Html.DisplayFor(model => model.User.Username)
+                    </dl>
+
+
+
+
+                </div>
+                <form asp-action="DeletePost">
+                    
+                     <input type="hidden" asp-for="Id" />
+
+
+                    <div class="form-group d-inline-flex  mb-3">
+                        <input type="submit" value="Delete" class="add-btn" style="margin-left:0px" />
+                            <button class="dropbtn " style="margin-left:15px">
+                                <a asp-action="Index" class="button-link">Back to List</a>
+                            </button>
+                    </div>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

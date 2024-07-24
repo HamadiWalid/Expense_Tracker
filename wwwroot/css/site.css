@@ -1,0 +1,491 @@
+/* Import Google Font: Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+html {
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif; /* Use the imported font */
+    color: #FFFFFF; /* Set a base text color for better contrast */
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    margin: 20px 0 60px;
+    background-color: #000000;
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    line-height: 1.6; /* Improve readability */
+}
+
+/* Focus Styles */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Container Styles */
+.tbl-container {
+    margin: 10px 0 0 10px;
+}
+
+.bg-color {
+    background-color: #1A1A1A;
+    color: #77757F;
+}
+
+.bdr {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Navbar Styles */
+.custom-brand {
+    margin: 30px;
+}
+
+.nav-container {
+    background-color: #1A1A1A;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.custom-nav-link {
+    display: inline-block;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 5px;
+    font-weight: 600; /* Bold font weight for nav links */
+    color: #FFFFFF; /* Ensure nav links are white for contrast */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition effects */
+}
+
+    .custom-nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #FFFFFF;
+    }
+
+/* Text Color Styles */
+.text-expense {
+    color: #89CA9F; /* Color for "Expense" */
+}
+
+.text-tracker {
+    color: white; /* Color for "Tracker" */
+}
+
+/* Active and Inactive Nav Link Styles */
+.custom-nav-link-on {
+    color: black;
+    background-color: #89CA9F;
+    border-radius: 10px;
+    padding: 0.5rem 1rem; /* Adjust padding as needed */
+    margin: 0.25rem; /* Optional: adds space around each button */
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth color transition on hover */
+    font-weight: 600; /* Bold font weight for active state */
+}
+
+.custom-nav-link-off {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 0.5rem 1rem; /* Adjust padding as needed */
+    margin: 0.25rem; /* Optional: adds space around each button */
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth color transition on hover */
+    font-weight: 400; /* Regular font weight for inactive state */
+}
+
+    .custom-nav-link-off:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Hover effect for inactive state */
+    }
+
+    /************************************/
+/* Styles for the search container */
+.search-container {
+    background-color: #1A1A1A; /* Same color as the table header */
+    border-radius: 15px;
+    padding: 10px 15px; /* Add some padding for better appearance */
+    margin-bottom: 20px; /* Space between search box and table */
+    display: flex;
+    justify-content: flex-start; /* Align the input to the left */
+}
+
+
+
+
+
+/* Styles for the search container */
+.search-container {
+    background-color: #1A1A1A; /* Same color as the table header */
+    border-radius: 15px;
+    padding: 10px 15px; /* Add some padding for better appearance */
+    margin-bottom: 20px; /* Space between search box and table */
+    display: flex;
+    justify-content: space-between; /* Align the input and button */
+    align-items: center; /* Center align the items vertically */
+}
+
+/* Styles for the search input */
+.search-input {
+    border-radius: 15px;
+    border: none; /* Remove default border */
+    padding: 10px; /* Add padding for better appearance */
+    width: 100%; /* Take full width of the container */
+    max-width: 300px; /* Limit the maximum width */
+    outline: none; /* Remove outline on focus */
+    background-color: #333; /* Darker background color for input */
+    color: white; /* White text color */
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    font-size: 1rem; /* Adjust font size as needed */
+    transition: box-shadow 0.3s ease; /* Smooth transition for focus effect */
+}
+
+    .search-input::placeholder {
+        color: #777; /* Placeholder text color */
+    }
+
+    .search-input:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #89CA9F; /* Focus shadow effect */
+    }
+
+/* Styles for the add button */
+.add-btn {
+    background-color: #4D77FF; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for better appearance */
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flexbox for icon alignment */
+    align-items: center; /* Center align the icon */
+}
+
+    /* Add margin to the icon for spacing */
+    .add-btn i {
+        margin-right: 10px; /* Space between icon and text */
+    }
+
+    /* Add hover effect for the button */
+    .add-btn:hover {
+        background-color: #365BBF; /* Darken the button color on hover */
+    }
+
+/* Styles for the expenses title */
+.expenses-title {
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    font-size: 1.0rem; /* Adjust font size as needed */
+    color: #89CA9F; /* Text color */
+    margin-bottom: 10px; /* Space between title and table */
+    margin-left: 15px; /* Align title with table and search container */
+    font-weight: bold; /* Make the title bold */
+    position: relative; /* Relative positioning for pseudo-element */
+}
+
+    /* Pseudo-element for custom underline */
+    .expenses-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px; /* Positioning of the underline */
+        width: 60px;
+        height: 2px; /* Thickness of the underline */
+        background-color: #89CA9F; /* Color of the underline */
+        border-radius: 2px; /* Rounded corners for a smooth look */
+    }
+
+
+
+/* Styles for the expense header */
+.expense-header {
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    font-size: 2rem; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: white; /* Text color */
+    margin-bottom: 20px; /* Space between header and table */
+    margin-left: 15px; /* Align header with table and search container */
+}
+
+
+/* Container for the buttons */
+.button-group {
+    display: flex;
+    align-items: center;
+}
+
+/* Styles for the add button */
+.add-btn {
+    background-color: #4D77FF; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for better appearance */
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flexbox for icon alignment */
+    align-items: center; /* Center align the icon */
+    margin-left: 10px; /* Space between buttons */
+}
+
+    /* Add margin to the icon for spacing */
+    .add-btn i {
+        margin-right: 10px; /* Space between icon and text */
+    }
+
+    /* Add hover effect for the button */
+    .add-btn:hover {
+        background-color: #365BBF; /* Darken the button color on hover */
+    }
+
+/* Dropdown button styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #FF7F50; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for better appearance */
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flexbox for icon alignment */
+    align-items: center; /* Center align the icon */
+}
+
+    /* Add margin to the icon for spacing */
+    .dropbtn i {
+        margin-right: 10px; /* Space between icon and text */
+    }
+
+/* Dropdown content styles */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-family: 'Poppins', sans-serif;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Add hover effect for the dropdown button */
+.dropdown:hover .dropbtn {
+    background-color: #FF6347; /* Darken the button color on hover */
+}
+
+
+
+
+/* Dropdown button styles */
+.dropbtn {
+    background-color: #6c757d; /* Soft grey */
+    color: white; /* Button text color */
+    /* Other styles remain the same */
+}
+
+/* Add hover effect for the dropdown button */
+.dropdown:hover .dropbtn {
+    background-color: #5a6268; /* Darker grey on hover */
+}
+
+/* Dropdown content styles */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px; /* Rounded corners for dropdown */
+    overflow: hidden; /* Ensure content fits within rounded corners */
+}
+
+    /* Dropdown link styles */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-family: 'Poppins', sans-serif;
+    }
+
+        /* Add hover effect for dropdown links */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Styles for pagination controls */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Space between table and pagination */
+}
+
+    .pagination a {
+        color: #666; /* Default color for numbers */
+        padding: 10px 15px;
+        text-decoration: none;
+        border: none; /* Remove border */
+        margin: 0 5px; /* Space between numbers */
+        font-family: 'Poppins', sans-serif; /* Consistent font family */
+    }
+
+    .pagination .active {
+        color: white; /* Highlight color for the current page */
+        font-weight: bold; /* Make the current page number bold */
+    }
+
+
+
+.table{
+    text-align:center;
+}
+
+
+
+
+
+
+/* Styles for the actions column in the table */
+.tbl-container td:last-child {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    justify-content: center; /* Center buttons horizontally */
+    align-items: center; /* Vertically align buttons */
+}
+
+/* Common styles for action buttons */
+.action-btn {
+    border: none;
+    border-radius: 15px;
+    padding: 8px 12px; /* Adjust padding for better spacing */
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+    cursor: pointer;
+    color: white; /* Text color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; /* Remove default background */
+    transition: background-color 0.3s, opacity 0.3s; /* Smooth transition */
+}
+
+/* Show button */
+.show-btn {
+    background-color: #007BFF; /* Blue color for Show */
+}
+
+/* Edit button */
+.edit-btn {
+    background: #5e63b6;
+}
+
+/* Delete button */
+.delete-btn {
+    background-color: #e95280; /* Red color for Delete */
+}
+
+/* Hover effects for buttons */
+.action-btn:hover {
+    opacity: 0.9;
+}
+
+/* Additional styles for buttons */
+.show-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+/* Additional styles for buttons */
+.edit-btn:hover {
+    background-color: #5e63b6; /* Darker green for hover effect */
+}
+
+.delete-btn:hover {
+    background-color: #d93a6e; /* Darker red for hover effect */
+}
+
+
+/* Icon styles */
+.action-btn i {
+    font-size: 16px; /* Size of the icons */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+
+/* Styles for the glass container */
+.glass-container {
+   
+    background: rgba(255, 255, 255, 0); /* Semi-transparent background */
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 60px;
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
+}
+
+.button-link {
+    color: white; /* Inherit text color from the button */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the link behave like an inline element */
+    width: 100%; /* Make the link take the full width of the button */
+    height: 100%; /* Make the link take the full height of the button */
+    line-height: inherit; /* Align text vertically within the button */
+    text-align: center; /* Center text horizontally within the button */
+    padding: 0; /* Remove default link padding */
+    margin: 0; /* Remove default link margin */
+}
+.button-link:hover{
+    color:white;
+}
+
+/* Disable default form design and apply custom styles */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    max-width:300px;
+    width:100%;
+}

@@ -1,0 +1,53 @@
+﻿@model Expense_Tracker.Models.Expense
+
+
+
+<div class="glass-container d-flex justify-content-center align-items-center ">
+    <div class="expense-form-container">
+        <div class="expense-header" style="margin-left:0">
+            Edit this expense
+        </div>
+        <div class="row align-content-center mt-2">
+            <div class="col-md-12">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label text-white mb-2"></label>
+                        <input asp-for="Name" class="form-control" style="border-radius:12px;border-width:0px;padding:10px" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount" class="control-label text-white mb-2"></label>
+                        <input asp-for="Amount"  class="form-control" style="border-radius:12px;border-width:0px;padding:10px" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label text-white mb-2"></label>
+                        <input asp-for="Date" class="form-control" style="border-radius:12px;border-width:0px;padding:10px" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryId" class="control-label text-white mb-2">Category</label>
+                        <select asp-for="CategoryId" class="form-control " style="border-radius:12px;border-width:0px;padding:10px" asp-items="ViewBag.CategoryId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserId" class="control-label text-white mb-2">User</label>
+                        <select asp-for="UserId" class="form-control" style="border-radius:12px;border-width:0px;padding:10px" asp-items="ViewBag.UserId"></select>
+                    </div>
+                    <div class="form-group d-inline-flex mt-5 mb-3">
+                        <input type="submit" value="Save" class="add-btn" style="margin-left:0px;" />
+                        <button class="dropbtn " style="margin-left:15px">
+                            <a asp-action="Index" class="button-link">Back to List</a>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
