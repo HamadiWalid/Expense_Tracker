@@ -31,8 +31,7 @@ namespace Expense_Tracker.Controllers
         }
 
         // POST: Expense/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Expense obj)
@@ -43,7 +42,7 @@ namespace Expense_Tracker.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Expense/Edit/5
+        // GET: Expense/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -61,22 +60,20 @@ namespace Expense_Tracker.Controllers
             return View(expense);
         }
 
-        // POST: Expense/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Expense/Edit
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Expense obj)
         {
             _context.Expenses.Update(obj);
             _context.SaveChanges();
-            //TempData["success"] = "User edited successfully";
 
             return RedirectToAction("Index");
         }
 
 
-        // GET: Expense/Delete/5
+        // GET: Expense/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -112,34 +109,23 @@ namespace Expense_Tracker.Controllers
             _context.Expenses.Remove(UserFromDb);
             _context.SaveChanges();
 
-            //TempData["success"] = "User deleted successfully";
 
             return RedirectToAction("Index");
 
         }
 
-        //// GET: Expense
-        //public async Task<IActionResult> Index()
-        //{
-        //    var applicationDbContext = _context.Expenses.Include(e => e.Category).Include(e => e.User);
-        //    return View(await applicationDbContext.ToListAsync());
-        //}
-
         public IActionResult Index(string searchString)
         {
-            // Query to retrieve Expenses
             var Expenses = from e in _context.Expenses
                            .Include(e => e.Category)
                            .Include(e => e.User)
                            select e;
 
-            // If search string is not null or empty, filter Expenses based on the search string
             if (!string.IsNullOrEmpty(searchString))
             {
                 Expenses = Expenses.Where(c => c.Name.Contains(searchString) || c.Category.Name.Contains(searchString)|| c.User.Username.Contains(searchString));
             }
 
-            // Pass the Expenses and the search string to the view
             ViewData["SearchString"] = searchString;
             return View(Expenses.ToList());
         }

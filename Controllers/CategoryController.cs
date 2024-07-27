@@ -9,19 +9,14 @@ namespace Expense_Tracker.Controllers
     {
         
 
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _context;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(ApplicationDbContext context)
         {
-            _db = db;
+            _context = context;
         }
 
-        //public IActionResult Index()
-        //{
-        //    IEnumerable<Category> objCategoryList = _db.Categories.ToList();
-        //    return View(objCategoryList);
-        //}
-
+ 
 
         //Get
         public IActionResult Create()
@@ -34,18 +29,11 @@ namespace Expense_Tracker.Controllers
             [ValidateAntiForgeryToken]
             public IActionResult Create(Category obj)
             {
-                //if(obj.Nom==null)
-                //ModelState.AddModelError("Nom", "Champ obligatoire");
-
-                //if (ModelState.IsValid)
-                //{
-                    _db.Categories.Add(obj);
-                    _db.SaveChanges();
-                    //TempData["success"] = "Category added successfully";
+           
+                    _context.Categories.Add(obj);
+                    _context.SaveChanges();
                     return RedirectToAction("Index");
-                //}
-
-                //return View(obj);
+        
 
             }
 
@@ -57,10 +45,8 @@ namespace Expense_Tracker.Controllers
                     return NotFound();
                 }
 
-                var CategoryFromDb = _db.Categories.Find(id);
-                //var CategoryFromDbFirst=_db.Categories.FirstOrDefault(u=>u.Id==id);
-                //var CategoryFromDbSingle=_db.Categories.SingleOrDefault(u=>u.Id==id);
-
+                var CategoryFromDb = _context.Categories.Find(id);
+           
                 if (CategoryFromDb == null)
                 {
                     return NotFound();
@@ -76,18 +62,12 @@ namespace Expense_Tracker.Controllers
             public IActionResult Edit(Category obj)
             {
 
-                //if (ModelState.IsValid)
-                //{
-                    _db.Categories.Update(obj);
-                    _db.SaveChanges();
-                    //TempData["success"] = "Category edited successfully";
+    
+                    _context.Categories.Update(obj);
+                    _context.SaveChanges();
 
                     return RedirectToAction("Index");
-                //}
-                //else
-                //{
-                //    return View(obj);
-                //}
+      
             }
 
 
@@ -100,10 +80,8 @@ namespace Expense_Tracker.Controllers
                     return NotFound();
                 }
 
-                var CategoryFromDb = _db.Categories.Find(id);
-                //var CategoryFromDbFirst = _db.Categories.FirstOrDefault(u => u.Id == id);
-                //var CategoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
-
+                var CategoryFromDb = _context.Categories.Find(id);
+     
                 if (CategoryFromDb == null)
                 {
                     return NotFound();
@@ -118,7 +96,7 @@ namespace Expense_Tracker.Controllers
             [ValidateAntiForgeryToken]
             public IActionResult DeletePost(int? id)
             {
-                var CategoryFromDb = _db.Categories.Find(id);
+                var CategoryFromDb = _context.Categories.Find(id);
 
                 if (CategoryFromDb == null)
                 {
@@ -126,10 +104,9 @@ namespace Expense_Tracker.Controllers
                 }
 
 
-                _db.Categories.Remove(CategoryFromDb);
-                _db.SaveChanges();
+                _context.Categories.Remove(CategoryFromDb);
+                _context.SaveChanges();
 
-                //TempData["success"] = "Category deleted successfully";
 
                 return RedirectToAction("Index");
 
@@ -137,16 +114,13 @@ namespace Expense_Tracker.Controllers
 
         public IActionResult Index(string searchString)
         {
-            // Query to retrieve Categories
-            var Categories = from c in _db.Categories select c;
+            var Categories = from c in _context.Categories select c;
 
-            // If search string is not null or empty, filter Categories based on the search string
             if (!string.IsNullOrEmpty(searchString))
             {
                 Categories = Categories.Where(c => c.Name.Contains(searchString));
             }
 
-            // Pass the Categories and the search string to the view
             ViewData["SearchString"] = searchString;
             return View(Categories.ToList());
         }

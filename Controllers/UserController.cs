@@ -6,19 +6,14 @@ namespace Expense_Tracker.Controllers
 {
     public class UserController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _context;
 
-        public UserController(ApplicationDbContext db)
+        public UserController(ApplicationDbContext context)
         {
-            _db = db;
+            _context = context;
         }
 
-        //public IActionResult Index()
-        //{
-        //    IEnumerable<User> objUserList = _db.Users.ToList();
-        //    return View(objUserList);
-        //}
-
+ 
 
         //Get
         public IActionResult Create()
@@ -31,19 +26,11 @@ namespace Expense_Tracker.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(User obj)
         {
-            //if(obj.Nom==null)
-            //ModelState.AddModelError("Nom", "Champ obligatoire");
-
-            //if (ModelState.IsValid)
-            //{
-            _db.Users.Add(obj);
-            _db.SaveChanges();
-            //TempData["success"] = "User added successfully";
+        
+            _context.Users.Add(obj);
+            _context.SaveChanges();
             return RedirectToAction("Index");
-            //}
-
-            //return View(obj);
-
+    
         }
 
         //Get
@@ -54,9 +41,8 @@ namespace Expense_Tracker.Controllers
                 return NotFound();
             }
 
-            var UserFromDb = _db.Users.Find(id);
-            //var UserFromDbFirst=_db.Users.FirstOrDefault(u=>u.Id==id);
-            //var UserFromDbSingle=_db.Users.SingleOrDefault(u=>u.Id==id);
+            var UserFromDb = _context.Users.Find(id);
+     
 
             if (UserFromDb == null)
             {
@@ -73,18 +59,11 @@ namespace Expense_Tracker.Controllers
         public IActionResult Edit(User obj)
         {
 
-            //if (ModelState.IsValid)
-            //{
-            _db.Users.Update(obj);
-            _db.SaveChanges();
-            //TempData["success"] = "User edited successfully";
+            _context.Users.Update(obj);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
-            //}
-            //else
-            //{
-            //    return View(obj);
-            //}
+            
         }
 
 
@@ -97,9 +76,8 @@ namespace Expense_Tracker.Controllers
                 return NotFound();
             }
 
-            var UserFromDb = _db.Users.Find(id);
-            //var UserFromDbFirst = _db.Users.FirstOrDefault(u => u.Id == id);
-            //var UserFromDbSingle = _db.Users.SingleOrDefault(u => u.Id == id);
+            var UserFromDb = _context.Users.Find(id);
+    
 
             if (UserFromDb == null)
             {
@@ -115,7 +93,7 @@ namespace Expense_Tracker.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var UserFromDb = _db.Users.Find(id);
+            var UserFromDb = _context.Users.Find(id);
 
             if (UserFromDb == null)
             {
@@ -123,10 +101,9 @@ namespace Expense_Tracker.Controllers
             }
 
 
-            _db.Users.Remove(UserFromDb);
-            _db.SaveChanges();
+            _context.Users.Remove(UserFromDb);
+            _context.SaveChanges();
 
-            //TempData["success"] = "User deleted successfully";
 
             return RedirectToAction("Index");
 
@@ -136,16 +113,13 @@ namespace Expense_Tracker.Controllers
 
         public IActionResult Index(string searchString)
         {
-            // Query to retrieve Users
-            var Users = from c in _db.Users select c;
+            var Users = from c in _context.Users select c;
 
-            // If search string is not null or empty, filter Users based on the search string
             if (!string.IsNullOrEmpty(searchString))
             {
                 Users = Users.Where(c => c.Username.Contains(searchString));
             }
 
-            // Pass the Users and the search string to the view
             ViewData["SearchString"] = searchString;
             return View(Users.ToList());
         }
