@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Expense_Tracker.Data;
 using Expense_Tracker.Models;
+using OfficeOpenXml;
 
 namespace Expense_Tracker.Controllers
 {
@@ -20,23 +21,23 @@ namespace Expense_Tracker.Controllers
         }
 
 
-   
+
 
         // GET: Expense/Create
         public IActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(_context.Expenses, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username");
             return View();
         }
 
         // POST: Expense/Create
-     
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Expense obj)
         {
-  
+
             _context.Expenses.Add(obj);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -55,13 +56,13 @@ namespace Expense_Tracker.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Expenses, "Id", "Name", expense.CategoryId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Password", expense.UserId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", expense.CategoryId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username", expense.UserId);
             return View(expense);
         }
 
-        // POST: Expense/Edit
 
+        // POST: Expense/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Expense obj)
@@ -73,7 +74,7 @@ namespace Expense_Tracker.Controllers
         }
 
 
-        // GET: Expense/Delete
+        // GET: Expense/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -114,20 +115,83 @@ namespace Expense_Tracker.Controllers
 
         }
 
-        public IActionResult Index(string searchString)
+     
+        //GET: Expense
+        public async Task<IActionResult> Index()
         {
+            return View(await _context.Expenses.ToListAsync());
+        }
+        [HttpGet]
+        public async Task<IActionResult> Index(string sortOrder, string search, DateTime? dateStart, DateTime? dateEnd, int pg = 1)
+        {
+            ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
+
+
+            // Query to retrieve Expenses
             var Expenses = from e in _context.Expenses
                            .Include(e => e.Category)
                            .Include(e => e.User)
                            select e;
 
-            if (!string.IsNullOrEmpty(searchString))
+            const int pageSize = 5;
+            if (pg < 1)
+                pg = 1;
+
+            int recCount = Expenses.Count();
+            var pages = new Pages(recCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            Expenses = Expenses.Skip(recSkip).Take(pages.PageSize);
+            this.ViewBag.Pages = pages;
+
+
+            switch (sortOrder)
             {
-                Expenses = Expenses.Where(c => c.Name.Contains(searchString) || c.Category.Name.Contains(searchString)|| c.User.Username.Contains(searchString));
+                case "Name":
+                    Expenses = Expenses.OrderBy(s => s.Name);
+                    break;
+                case "Name_desc":
+                    Expenses = Expenses.OrderByDescending(s => s.Name);
+                    break;
+
+
             }
 
-            ViewData["SearchString"] = searchString;
-            return View(Expenses.ToList());
+
+
+            ViewData["SearchString"] = search;
+
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                Expenses = Expenses.Where(x => x.Name.Contains(search));
+            }
+
+
+
+
+            return View(await Expenses.AsNoTracking().ToListAsync());
+
+        }
+
+
+        // Action to export data to Excel
+        public IActionResult ExportToExcel()
+        {
+            var expenses = _context.Expenses.ToList();
+            var stream = new MemoryStream();
+
+            using (var package = new ExcelPackage(stream))
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Expenses");
+                worksheet.Cells.LoadFromCollection(expenses, true);
+                package.Save();
+            }
+
+            stream.Position = 0;
+            string excelName = $"Expenses-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
     }
 }

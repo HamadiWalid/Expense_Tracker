@@ -1,23 +1,32 @@
 ﻿@model IEnumerable<Expense_Tracker.Models.Category>
 
+@{
+
+    Pages pages = new Pages();
+    int noPages = 0;
+    if (ViewBag.Pages != null)
+    {
+        pages = ViewBag.Pages;
+        noPages = pages.CurrentPage;
+    }
+}
 
 <div class="glass-container">
-    <div class="expense-header ">
+    <div class="expense-header">
         Category
     </div>
 
     <div class="search-container mt-5">
         <form method="get" asp-action="Index" class="search-form">
-            <input type="text" name="searchString" class="search-input" placeholder="Search..." value="@ViewData["SearchString"]">
-        </form>       
+            <input type="text" name="search" class="search-input" placeholder="Search..." value="@ViewData["SearchString"]">
+        </form>
         <div class="button-group">
             <div class="dropdown">
                 <button class="dropbtn">
                     <i class="fas fa-file-export"></i> Export
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Excel</a>
-                    <a href="#">PDF</a>
+                    <a asp-action="ExportToExcel" asp-controller="Category">Excel</a>
                 </div>
             </div>
             <button class="add-btn">
@@ -25,16 +34,12 @@
                     <i class="fas fa-plus"></i> Add new category
                 </a>
             </button>
-
         </div>
     </div>
 
     <div class="expenses-title mt-5">
         List of categories
     </div>
-
-
-
 
     <div class="tbl-container bdr mt-4">
         <table class="table">
@@ -48,12 +53,11 @@
                 </tr>
             </thead>
             <tbody class="table-borderless" style="color:white;border-color:transparent">
-
-                    @foreach (var item in Model)
-                    {
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>
-                                @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
                             <button class="action-btn edit-btn" title="Edit">
@@ -66,22 +70,49 @@
                                     <i class="fas fa-trash"></i> Delete
                                 </a>
                             </button>
-
                         </td>
                     </tr>
-                    }
+                }
             </tbody>
         </table>
     </div>
 
-    <!-- Pagination controls -->
-    <div class="pagination mt-4">
-        <a href="#" class="prev">&laquo; Previous</a>
-        <a href="#" class="page-number active">1</a>
-        <a href="#" class="page-number">2</a>
-        <a href="#" class="page-number">3</a>
-        <a href="#" class="next">Next &raquo;</a>
+
+
+    <div class="container">
+        @if (pages.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-center">
+
+                @if (pages.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="next" asp-controller="Category" asp-action="Index" asp-route-pg="1">Start</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="next" asp-controller="Category" asp-action="Index" asp-route-pg="@(pages.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+
+                @for (var pg = pages.StartPage; pg <= pages.EndPage; pg++)
+                {
+                    <li class="page-item @(pg == pages.CurrentPage ? "active" : "")">
+                        <a class="next" asp-controller="Category" asp-action="Index" asp-route-pg="@pg">@pg</a>
+                    </li>
+                }
+
+                @if (pages.CurrentPage < pages.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="next" asp-controller="Category" asp-action="Index" asp-route-pg="@(pages.CurrentPage + 1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="next" asp-controller="Category" asp-action="Index" asp-route-pg="@(pages.TotalPages)">End</a>
+                    </li>
+                }
+
+            </ul>
+        }
     </div>
+
 </div>
-
-

@@ -1,5 +1,15 @@
 ﻿@model IEnumerable<Expense_Tracker.Models.User>
 
+@{
+
+    Pages pages = new Pages();
+    int noPages = 0;
+    if (ViewBag.Pages != null)
+    {
+        pages = ViewBag.Pages;
+        noPages = pages.CurrentPage;
+    }
+}
 
 
 
@@ -13,9 +23,8 @@
     </div>
 
     <div class="search-container mt-5">
-
         <form method="get" asp-action="Index" class="search-form">
-            <input type="text" name="searchString" class="search-input" placeholder="Search..." value="@ViewData["SearchString"]">
+            <input type="text" name="search" class="search-input" placeholder="Search..." value="@ViewData["SearchString"]">
         </form>
 
             <div class="button-group">
@@ -23,10 +32,9 @@
                     <button class="dropbtn">
                         <i class="fas fa-file-export"></i> Export
                     </button>
-                    <div class="dropdown-content">
-                        <a href="#">Excel</a>
-                        <a href="#">PDF</a>
-                    </div>
+                <div class="dropdown-content">
+                    <a asp-action="ExportToExcel" asp-controller="User">Excel</a>
+                </div>
                 </div>
                 <button class="add-btn">
                     <a asp-action="Create" class="button-link">
@@ -82,14 +90,42 @@
         </table>
     </div>
 
-    <!-- Pagination controls -->
-    <div class="pagination mt-4">
-        <a href="#" class="prev">&laquo; Previous</a>
-        <a href="#" class="page-number active">1</a>
-        <a href="#" class="page-number">2</a>
-        <a href="#" class="page-number">3</a>
-        <a href="#" class="next">Next &raquo;</a>
+    <div class="container">
+        @if (pages.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-center">
+
+                @if (pages.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="next" asp-controller="User" asp-action="Index" asp-route-pg="1">Start</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="next" asp-controller="User" asp-action="Index" asp-route-pg="@(pages.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+
+                @for (var pg = pages.StartPage; pg <= pages.EndPage; pg++)
+                {
+                    <li class="page-item @(pg == pages.CurrentPage ? "active" : "")">
+                        <a class="next" asp-controller="User" asp-action="Index" asp-route-pg="@pg">@pg</a>
+                    </li>
+                }
+
+                @if (pages.CurrentPage < pages.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="next" asp-controller="User" asp-action="Index" asp-route-pg="@(pages.CurrentPage + 1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="next" asp-controller="User" asp-action="Index" asp-route-pg="@(pages.TotalPages)">End</a>
+                    </li>
+                }
+
+            </ul>
+        }
     </div>
+
 </div>
 
 

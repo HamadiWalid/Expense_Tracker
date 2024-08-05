@@ -485,3 +485,28 @@ body {
     max-width:300px;
     width:100%;
 }
+
+.pagination .active a {
+    color: white !important;
+}
+
+/***********************************/
+
+.hero {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.inner-rectangle {
+    background-color: #1B1B1B;
+    color: #A9A9A9;
+    border-radius: 15px;
+    display: inline-block;
+    padding: 10px 10px 7px 10px;
+}
+
+.expense-image {
+    width: 40%; /* Adjust the width to reduce the size */
+    height: 80%; /* Maintain aspect ratio */
+    margin-top: 20px; /* Add space between buttons and image */
+}

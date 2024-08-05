@@ -9,6 +9,5 @@ namespace Expense_Tracker.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<Expense> Expenses { get; set; }
     }
 }

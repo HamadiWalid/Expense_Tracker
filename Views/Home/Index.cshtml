@@ -2,125 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="glass-container">
-    <div class="expense-header ">
-        Expense
+<div class="hero">
+    <div class="inner-rectangle">
+        <h6>Next generation of</h6>
+    </div>
+    <h1 class="mt-4 text-white">Expense tracking.</h1>
+    <p class="text-white-50 mt-4" style="padding:0px 300px;">Finfit is the ultimate tool for managing your money and staying on top of your expenses. With our easy-to-use app, you can quickly input and categorize your expenses, set and track a budget.</p>
+
+    <div class="form-group mt-5 mb-2">
+        <button style="margin-left: 15px; background: #66C491; border: 2px solid #66C491; border-radius: 15px; color: black; font-size: bold; padding: 10px 20px;font-weight:bold">
+            Download
+        </button>
+      
+        <button style="margin-left: 15px; background: transparent; border: 2px solid silver; border-radius: 15px; color: white; font-size: bold; padding: 10px 20px;font-weight:bold">
+            Documentation
+        </button>
     </div>
 
-    <div class="search-container mt-5">
-        <input type="text" class="search-input" placeholder="Search...">
-        <div class="button-group">
-            <div class="dropdown">
-                <button class="dropbtn">
-                    <i class="fas fa-file-export"></i> Export
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">Excel</a>
-                    <a href="#">PDF</a>
-                </div>
-            </div>
-            <button class="add-btn">
-                <i class="fas fa-plus"></i> Add an expense
-            </button>
-        </div>
-    </div>
+    <img src="~/Images/Expense.png" alt="Alternate Text" class="expense-image" />
 
-    <div class="expenses-title mt-5">
-        List of expenses
-    </div>
-
-
-
-
-    <div class="tbl-container bdr mt-4">
-        <table class="table">
-            <thead class="bg-color">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="table-borderless" style="color:white;border-color:transparent">
-              <tr>
-                    <th scope="row">1</th>
-                    <td>Clavier sans fil</td>
-                    <td>15000.00 DA</td>
-                    <td>20/07/2024</td>
-                    <td>Informatique</td>
-                    <td>HAMADI Walid</td>
-                    <td>
-                        <button class="action-btn edit-btn" title="Edit">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" title="Delete">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Clavier sans fil</td>
-                    <td>15000.00 DA</td>
-                    <td>20/07/2024</td>
-                    <td>Informatique</td>
-                    <td>HAMADI Walid</td>
-                    <td>
-                        <button class="action-btn edit-btn" title="Edit">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" title="Delete">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Clavier sans fil</td>
-                    <td>15000.00 DA</td>
-                    <td>20/07/2024</td>
-                    <td>Informatique</td>
-                    <td>HAMADI Walid</td>
-                    <td>
-                        <button class="action-btn edit-btn" title="Edit">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" title="Delete">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Clavier sans fil</td>
-                    <td>15000.00 DA</td>
-                    <td>20/07/2024</td>
-                    <td>Informatique</td>
-                    <td>HAMADI Walid</td>
-                    <td>
-                        <button class="action-btn edit-btn" title="Edit">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" title="Delete">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Pagination controls -->
-    <div class="pagination mt-4">
-        <a href="#" class="prev">&laquo; Previous</a>
-        <a href="#" class="page-number active">1</a>
-        <a href="#" class="page-number">2</a>
-        <a href="#" class="page-number">3</a>
-        <a href="#" class="next">Next &raquo;</a>
-    </div>
 </div>
+

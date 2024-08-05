@@ -12,6 +12,5 @@ namespace Expense_Tracker.Models
         [Required]
         public string Password { get; set; }
 
-        public ICollection<Expense> Expenses { get; set; }
     }
 }

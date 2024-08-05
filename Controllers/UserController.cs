@@ -1,6 +1,8 @@
 ﻿using Expense_Tracker.Data;
 using Expense_Tracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 namespace Expense_Tracker.Controllers
 {
@@ -109,21 +111,78 @@ namespace Expense_Tracker.Controllers
 
         }
 
-        //GET: User/Index
-
-        public IActionResult Index(string searchString)
+        //GET: User
+        public async Task<IActionResult> Index()
         {
-            var Users = from c in _context.Users select c;
+            return View(await _context.Users.ToListAsync());
+        }
+        [HttpGet]
+        public async Task<IActionResult> Index(string sortOrder, string search, DateTime? dateStart, DateTime? dateEnd, int pg = 1)
+        {
+            ViewData["UsernameSortParm"] = sortOrder == "Username" ? "Username_desc" : "Username";
+     
 
-            if (!string.IsNullOrEmpty(searchString))
+            var Users = from x in _context.Users
+                             select x;
+
+            const int pageSize = 5;
+            if (pg < 1)
+                pg = 1;
+
+            int recCount = Users.Count();
+            var pages = new Pages(recCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            Users = Users.Skip(recSkip).Take(pages.PageSize);
+            this.ViewBag.Pages = pages;
+
+
+            switch (sortOrder)
             {
-                Users = Users.Where(c => c.Username.Contains(searchString));
+                case "Username":
+                    Users = Users.OrderBy(s => s.Username);
+                    break;
+                case "Username_desc":
+                    Users = Users.OrderByDescending(s => s.Username);
+                    break;
+
+
             }
 
-            ViewData["SearchString"] = searchString;
-            return View(Users.ToList());
+
+
+            ViewData["SearchString"] = search;
+
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                Users = Users.Where(x => x.Username.Contains(search));
+            }
+
+
+
+
+            return View(await Users.AsNoTracking().ToListAsync());
+
         }
 
+        // Action to export data to Excel
+        public IActionResult ExportToExcel()
+        {
+            var users = _context.Users.ToList();
+            var stream = new MemoryStream();
 
+            using (var package = new ExcelPackage(stream))
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Users");
+                worksheet.Cells.LoadFromCollection(users, true);
+                package.Save();
+            }
+
+            stream.Position = 0;
+            string excelName = $"Users-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
     }
 }
