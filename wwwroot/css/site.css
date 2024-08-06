@@ -506,7 +506,12 @@ body {
 }
 
 .expense-image {
-    width: 40%; /* Adjust the width to reduce the size */
-    height: 80%; /* Maintain aspect ratio */
-    margin-top: 20px; /* Add space between buttons and image */
+    width: 30%; /* Adjust the width to reduce the size */
+    margin-top: 40px; /* Add space between buttons and image */
+}
+body {
+    background-image: url('/Images/Expense2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
